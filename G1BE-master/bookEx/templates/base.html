@@ -1,0 +1,140 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <title>
+        {% block title %}
+            G1BE
+        {% endblock title %}
+    </title>
+
+
+<!--    Link to CSS stylesheet for fine tuning-->
+    <link href="{% static 'main1.css' %}" rel="stylesheet" type="text/css">
+
+<!--    Connection to Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<!--    Jquery, popper.js, and bootstrap JS for the more fun bootstrap features-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container">
+
+<!--    All Navigation-->
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light" style = "background-color: #ffffff;">
+            <a class="navbar-brand" href="\">
+             <img src="{% static 'logo.jpg' %}" width="50" height="50" alt="" />
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                 {% for item in item_list %}
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ item.link }}"> {{ item.item }} </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+<!--            All user login information-->
+            <span style="float: right; align: right;">
+                    {% if user.is_authenticated %}
+                       {{ user.username }}
+                       <a href="{% url 'logout' %}?next=/">Logout</a>
+                    {% else %}
+                       Not Logged in
+                       <a href="{% url 'login' %}?next=/">Login</a>
+                    {% endif %}
+                <p>
+                                <a href="{% url 'purchase' %}"> Shopping Cart </a></p>
+                    </span>
+        </nav>
+
+<!--    Top banner information-->
+        <div id="topbanner" class="row">
+            <img src="{% static 'topbanner.jpg' %}" class="img-fluid" alt="" />
+        </div>
+
+<!-- This is hwere all of the content will go-->
+        <div class="row mt-5">
+            <div class="col-8">
+                {% block content %}
+
+                {% endblock content %}
+            </div>
+
+<!--This is just search bar -->
+            <div class="col-4">
+                <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Search</div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <form action="{% url 'searchresults' %}" method="get">
+                                <input class="form-control mb-2" name = 'q' type="text" placeholder="Search by title..." />
+                                <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+
+
+
+    <footer id="footer"> CS 3337 | G1BE | Team 1</footer>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

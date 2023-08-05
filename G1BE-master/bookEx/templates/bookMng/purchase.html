@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block content %}
+<h1 align="center"> Shopping Cart </h1>
+    <table align="center" border="2" width="500">
+        {% for ordered_item in ordered_items %}
+            <tr>
+                <td>
+                    <p> {{ ordered_item.product }} </p>
+                </td>
+
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock content %}

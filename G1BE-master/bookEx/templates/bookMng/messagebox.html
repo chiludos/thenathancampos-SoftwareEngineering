@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<h1 class="header" align="center"> User Forum </h1>
+
+<!--Displays Messages-->
+<br>
+{% for c in chats %}
+<div class="card text-center mb-5">
+    <div class="card-header">
+        {% if c.username == None %}
+        Posted by Guest on {{c.publishdate}}
+        {% else %}
+        Posted by {{ c.username }} on {{c.publishdate}}
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <img src="{% static 'head.jpg' %}" height="70" width="70" align="left">
+        <p class="card-text">{{c.chat}}</p>
+
+    </div>
+</div>
+
+{% endfor %}
+
+
+
+
+
+<!--Posts Messages-->
+{% if submitted %}
+    <h1> Message Sent </h1>
+{% else %}
+  <form action="" enctype="multipart/form-data" method="post" novalidate>
+      <table>
+          {{ form.as_table }}
+          <tr>
+              <td >
+                  <input class='btn btn-primary' type="submit" value="Submit">
+              </td>
+          </tr>
+      </table>
+      {% csrf_token %}
+  </form>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<h1 align="center"> Search Results </h1>
+  <table align="center" border="2" width="500" >
+      {% for book in books %}
+        <tr>
+            <td>
+                <a href="\book_detail/{{ book.id }}"> {{ book.name }} </a>
+            </td>
+            <td>
+                <img src="{% static book.pic_path %}" width="60" height="60">
+            </td>
+            <td>
+                {{ book.username }}
+            </td>
+        </tr>
+      {% empty %}
+    <p>No Results</p>
+      {% endfor %}
+  </table>
+{% endblock content %}

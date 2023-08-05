@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="card">
+        <div class="card-body">
+            <h2 class="card-title"> {{ book.name }}</h2>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-6">
+                    <div class="white-box text-center"><img src="{% static book.pic_path %}" class="img-fluid"></div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-6">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-product">
+                            <tbody>
+                                <tr>
+                                    <td width="390">Website</td>
+                                    <td>{{ book.web }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Price</td>
+                                    <td>${{ book.price }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Published</td>
+                                    <td>{{book.publishdate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Rating</td>
+                                    {% if book.rating == '1' %}
+                                       <td align="center">
+                                           <img src="{% static '1StarRating.png' %}" width="120" height="20">
+                                       </td>
+                                    {% elif book.rating == '2' %}
+                                       <td align="center">
+                                           <img src="{% static '2StarRating.png' %}" width="120" height="20">
+                                       </td>
+                                    {% elif book.rating == '3' %}
+                                       <td align="center">
+                                           <img src="{% static '3StarRating.png' %}" width="120" height="20">
+                                       </td>
+                                    {% elif book.rating == '4' %}
+                                       <td align="center">
+                                           <img src="{% static '4StarRating.png' %}" width="120" height="20">
+                                       </td>
+                                    {% elif book.rating == '5' %}
+                                       <td align="center">
+                                           <img src="{% static '5StarRating.png' %}" width="120" height="25">
+                                       </td>
+                                    {% endif %}
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <form action="\book_add/{{ book.id }}">
+                        <button class="btn btn-primary btn-rounded" type="submit">Add to Shopping Cart</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+<br>
+<div>
+  <div>
+    <div>
+      <div>
+        <!-- comments -->
+        <h2>{{ comments.count }} comments</h2>
+
+        {% for comment in comments %}
+        <div>
+          <p>
+            {{ comment.name }}
+            <span>
+              ({{ comment.created_on }})
+            </span>
+          </p>
+          {{ comment.body | linebreaks }}
+        </div> <br>
+        {% endfor %}
+      </div>
+    </div>
+    <div>
+      <div>
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <br><h3>Leave a comment</h3>
+        <form method="post">
+          {{ comment_form.as_p }}
+          {% csrf_token %}
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
